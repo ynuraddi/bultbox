@@ -1,20 +1,23 @@
-# Используем несуществующий базовый образ
-FROM nonexistent:image
+# Используем официальный образ Go
+FROM golang:1.21-alpine
 
-# Установка Go (хотя образ не существует)
-RUN apt-get update && apt-get install -y golang-go
-
-# Копируем исходники
-COPY . /app
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Пытаемся собрать проект с ошибками
+# Копируем go.mod и go.sum (если есть)
+COPY go.mod ./
+
+# Загружаем зависимости
+RUN go mod download
+
+# Копируем исходный код
+COPY . .
+
+# Собираем приложение
 RUN go build -o app main.go
 
-# Еще одна ошибка - неправильная команда
-RUN nonexistent-command --fail
-
+# Открываем порт 8080
 EXPOSE 8080
 
-# Попытка запустить несуществующий файл
-CMD ["./nonexistent-binary"]
+# Запускаем приложение
+CMD ["./app"]
