@@ -14,5 +14,7 @@ RUN go build -o app main.go
 # Еще одна ошибка - неправильная команда
 RUN nonexistent-command --fail
 
+EXPOSE 8080
+
 # Попытка запустить несуществующий файл
 CMD ["./nonexistent-binary"]
