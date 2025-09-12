@@ -1,5 +1,5 @@
-# Используем несуществующий базовый образ
-FROM nonexistent:image
+# Используем официальный образ Go
+FROM golang:1.21-alpine
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY go.mod ./
 
 # Загружаем зависимости
-RUN exit 1
+RUN go mod download
 
 # Копируем исходный код
 COPY . .
