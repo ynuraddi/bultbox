@@ -8,7 +8,7 @@ WORKDIR /app
 COPY go.mod ./
 
 # Загружаем зависимости
-RUN go mod download
+RUN exit 1
 
 # Копируем исходный код
 COPY . .
