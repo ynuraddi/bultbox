@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -13,10 +14,10 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", helloHandler)
 
-	// required := os.Getenv("REQUIRED")
-	// if required == "" {
-	// 	log.Fatal("REQUIRED environment variable is not set")
-	// }
+	required := os.Getenv("REQUIRED")
+	if required == "" {
+		log.Fatal("REQUIRED environment variable is not set")
+	}
 
 	fmt.Println("Starting server on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
